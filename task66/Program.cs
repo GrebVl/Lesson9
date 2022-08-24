@@ -7,16 +7,20 @@ M = 1; N = 15 -> 120
 M = 4; N = 8. -> 30
 */
 
-int SumNaturalNumbers(int num1, int num2)
+void SumNaturalNumbers(int num1, int num2, int sum)
 {
-    int sum = 0;
-    while (num1 <= num2)
+    if (num1 < num2)
     {
         sum += num1;
-        num1++;
+        SumNaturalNumbers(++num1, num2, sum);
     }
-    return sum;
+    else
+    {
+        sum += num2;
+        Console.WriteLine(sum);
+    }
 }
+
 
 Console.WriteLine("Введите число M и N через пробел:");
 string[] input = Console.ReadLine().Split();
@@ -25,21 +29,17 @@ int N = int.Parse(input[1]);
 
 int SumNat = 0;
 
+Console.Write("M = " + M + "; " + "N = " + N + " -> ");
+
 if (M >= 0 && N > M)
 {
-    SumNat = SumNaturalNumbers(M, N);
+    SumNaturalNumbers(M, N, SumNat);
 }
 else if (N < M && N >= 0)
 {
-    SumNat = SumNaturalNumbers(N, M);
-}
-else if (N == M && N >= 0)
-{
-    SumNat = SumNaturalNumbers(N, M);
+    SumNaturalNumbers(M, N, SumNat);
 }
 else
 {
     Console.WriteLine("Осуществлен неверный ввод");
 }
-
-Console.Write("M = " + M + "; " + "N = " + N + " -> " + SumNat);
